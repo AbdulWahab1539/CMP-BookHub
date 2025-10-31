@@ -4,4 +4,11 @@
     <string name="search_hint">Search...</string>
     <string name="close_hint">Search...</string>
     <string name="no_search_results">No Books Found!</string>
+    <string name="error_disk_full_">It seems like your disk is full!</string>
+    <string name="error_unknown_error">Unknown error occurred!</string>
+    <string name="error_request_time_out">Request timed out!</string>
+    <string name="error_no_internet">Check your internet connection!</string>
+    <string name="error_too_many_requests">Error, too many requests!</string>
+    <string name="error_no_search_results">You haven't saved any books yet!</string>
+    <string name="error_serialization">Couldn't parse data!</string>
 </resources>
