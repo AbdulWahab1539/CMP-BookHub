@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.plcoding.bookpedia.book.domain.Book
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
 @Composable
@@ -46,4 +47,13 @@ fun BookList(
             )
         }
     }
+}
+
+@Composable
+@Preview
+fun BookListPreview() {
+    BookList(
+        books = books,
+        onBookClick = {}
+    )
 }

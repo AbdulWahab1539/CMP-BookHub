@@ -35,8 +35,9 @@ private val books = (1..10).map {
         imageUrl = "https://test.com",
         numEditions = 1,
         numPages = 2,
-        firstPublishYear = "202$it"
-    )
+        firstPublishYear = "202$it",
+        ratingCount = 3,
+        )
 }
 
 @Preview

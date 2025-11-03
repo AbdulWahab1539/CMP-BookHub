@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,6 +41,7 @@ import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.core.presentation.LightBlue
 import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.round
 
 
@@ -71,7 +73,7 @@ fun BookListItem(
                 val painter = rememberAsyncImagePainter(
                     model = book.imageUrl,
                     onSuccess = {
-                        if (
+                        imageLoadResult = if (
                             it.painter.intrinsicSize.width > 1 &&
                             it.painter.intrinsicSize.height > 1
                         ) {
@@ -95,9 +97,9 @@ fun BookListItem(
                     else -> {
                         Image(
                             painter =
-                            if (result.isSuccess)
-                                painter
-                            else painterResource(Res.drawable.book_error_2),
+                                if (result.isSuccess)
+                                    painter
+                                else painterResource(Res.drawable.book_error_2),
                             contentDescription = null,
                             contentScale = if (result.isSuccess)
                                 ContentScale.Crop else ContentScale.Fit,
@@ -110,6 +112,7 @@ fun BookListItem(
                     }
                 }
             }
+            Spacer(modifier = Modifier.padding(horizontal = 8.dp))
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -155,4 +158,26 @@ fun BookListItem(
             )
         }
     }
+}
+
+val books = (1..10).map {
+    Book(
+        id = it.toString(),
+        title = "Book $it",
+        authors = listOf("Author $it"),
+        description = "Description $it",
+        averageRating = 1.34 + it,
+        languages = emptyList(),
+        imageUrl = "https://test.com",
+        numEditions = 1,
+        numPages = 2,
+        firstPublishYear = "202$it",
+        ratingCount = 3,
+    )
+}
+
+@Composable
+@Preview
+fun BookListItemPrev() {
+    BookListItem(book = books[0], {})
 }

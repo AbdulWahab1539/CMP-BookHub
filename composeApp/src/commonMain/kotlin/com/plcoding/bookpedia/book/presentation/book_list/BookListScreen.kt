@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,10 +37,12 @@ import cmp_bookpedia.composeapp.generated.resources.no_search_results
 import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.book.presentation.book_list.components.BookList
 import com.plcoding.bookpedia.book.presentation.book_list.components.BookSearchBar
+import com.plcoding.bookpedia.book.presentation.book_list.components.books
 import com.plcoding.bookpedia.core.presentation.DarkBlue
 import com.plcoding.bookpedia.core.presentation.DesertWhite
 import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 
@@ -181,7 +182,7 @@ fun BookListScreen(
                         .weight(1f)
                 ) { pageIndex ->
                     Box(
-                        modifier = Modifier.fillMaxHeight(),
+                        modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
                         when (pageIndex) {
@@ -244,4 +245,13 @@ fun BookListScreen(
             }
         }
     }
+}
+
+@Composable
+@Preview
+fun BookListPreview() {
+    BookListScreen(
+        state = BookListState(searchResults = books),
+        onAction = {}
+    )
 }
