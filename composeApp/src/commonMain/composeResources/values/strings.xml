@@ -11,4 +11,5 @@
     <string name="error_too_many_requests">Error, too many requests!</string>
     <string name="error_no_search_results">You haven't saved any books yet!</string>
     <string name="error_serialization">Couldn't parse data!</string>
+    <string name="go_back">Go Back</string>
 </resources>
