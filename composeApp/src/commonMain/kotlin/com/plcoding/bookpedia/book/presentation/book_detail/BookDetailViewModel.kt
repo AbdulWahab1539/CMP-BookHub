@@ -7,7 +7,13 @@ import androidx.navigation.toRoute
 import com.plcoding.bookpedia.app.Route
 import com.plcoding.bookpedia.book.domain.BookRepository
 import com.plcoding.bookpedia.core.domain.onSuccess
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class BookDetailViewModel(
@@ -17,6 +23,7 @@ class BookDetailViewModel(
     private val _state = MutableStateFlow(BookDetailState())
     val state = _state.onStart {
         fetchBookDescription()
+        observeFavoriteStatus()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000L),
@@ -28,7 +35,15 @@ class BookDetailViewModel(
         when (action) {
 
             BookDetailAction.OnFavoriteClick -> {
-
+                viewModelScope.launch {
+                    if (state.value.isFavorite) {
+                        bookRepository.deleteFavoriteBook(bookId)
+                    } else {
+                        state.value.book?.let { book ->
+                            bookRepository.markAsFavorite(book)
+                        }
+                    }
+                }
             }
 
             is BookDetailAction.OnSelectedBookChange -> {
@@ -41,6 +56,16 @@ class BookDetailViewModel(
 
             else -> Unit
         }
+    }
+
+    private fun observeFavoriteStatus() {
+        bookRepository.isBookFavorite(bookId)
+            .onEach { isFavorite ->
+                _state.update { s ->
+                    s.copy(isFavorite = isFavorite)
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     val bookId: String
