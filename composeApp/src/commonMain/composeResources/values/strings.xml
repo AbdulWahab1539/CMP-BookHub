@@ -11,4 +11,9 @@
     <string name="error_too_many_requests">Error, too many requests!</string>
     <string name="error_no_search_results">You haven't saved any books yet!</string>
     <string name="error_serialization">Couldn't parse data!</string>
+    <string name="go_back">Go Back</string>
+    <string name="mark_as_favorite">Mark as Favorite</string>
+    <string name="remove_from_favorites">Remove from Favorite</string>
+    <string name="book_cover">Book Cover</string>
+    <string name="description_unavailable">Description Unavailable</string>
 </resources>
